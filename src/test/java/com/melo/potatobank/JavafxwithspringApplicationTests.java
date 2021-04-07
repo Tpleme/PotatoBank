@@ -1,4 +1,4 @@
-package com.melo.javafxwithspring.javafxwithspring;
+package com.melo.potatobank;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,10 +1,8 @@
-package com.melo.javafxwithspring.javafxwithspring;
+package com.melo.potatobank;
 
-import com.melo.javafxwithspring.javafxwithspring.controller.MainStageController;
+import com.melo.potatobank.view.MainStageView;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,17 +17,19 @@ public class JavaFxApplication extends Application {
         String[] args = getParameters().getRaw().toArray(new String[0]);
 
         this.applicationContext = new SpringApplicationBuilder()
-                .sources(SpringBootExampleApplication.class)
+                .sources(Main.class)
                 .run(args);
     }
 
     @Override
     public void start(Stage stage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        Parent root = fxWeaver.loadView(MainStageController.class);
+       /* Parent root = fxWeaver.loadView(MainStageController.class);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        */
+        new Router(stage, MainStageView.class, fxWeaver);
     }
 
     @Override

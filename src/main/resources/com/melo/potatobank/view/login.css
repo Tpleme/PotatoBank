@@ -1,0 +1,29 @@
+#confirmButton:hover,
+#confirmButton:focused {
+    -fx-border-color: white;
+    -fx-border-width: 1.2;
+    -fx-scale-x: 1.05;
+}
+
+#cancelButton:hover,
+#cancelButton:focused {
+    -fx-border-color: white;
+    -fx-border-width: 1.2;
+    -fx-scale-x: 1.05;
+}
+
+#confirmButton {
+    -fx-background-color: #D37D28;
+    -fx-border-color: #9E5D18;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-width: 1;
+}
+
+#cancelButton {
+    -fx-background-color: #D37D28;
+    -fx-border-color: #9E5D18;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-width: 1;
+}

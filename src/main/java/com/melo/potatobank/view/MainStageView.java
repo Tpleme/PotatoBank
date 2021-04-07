@@ -1,6 +1,6 @@
-package com.melo.javafxwithspring.javafxwithspring.controller;
+package com.melo.potatobank.view;
 
-import com.melo.javafxwithspring.javafxwithspring.WeatherService;
+import com.melo.potatobank.WeatherService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("MainStage.fxml")
-public class MainStageController {
+public class MainStageView implements View {
 
     @FXML
     private Label weatherLabel;
     private WeatherService weatherService;
 
     @Autowired
-    public MainStageController(WeatherService weatherService) {
+    public MainStageView(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
 

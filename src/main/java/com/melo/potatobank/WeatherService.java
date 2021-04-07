@@ -1,4 +1,4 @@
-package com.melo.javafxwithspring.javafxwithspring;
+package com.melo.potatobank;
 
 import org.springframework.stereotype.Service;
 

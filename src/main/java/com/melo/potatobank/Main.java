@@ -1,10 +1,10 @@
-package com.melo.javafxwithspring.javafxwithspring;
+package com.melo.potatobank;
 
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootExampleApplication {
+public class Main {
 
     public static void main(String[] args) {
         Application.launch(JavaFxApplication.class, args);
