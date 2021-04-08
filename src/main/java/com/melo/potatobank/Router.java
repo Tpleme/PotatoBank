@@ -1,6 +1,7 @@
 package com.melo.potatobank;
 
 import com.melo.potatobank.view.View;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class Router {
         stage.show();
     }
 
-    private static void reRoute(Class<? extends View> view) {
+    public static void reRoute(Class<? extends View> view) {
 
         scene.setRoot(loadFXMLView(view));
         stage.sizeToScene();
@@ -42,5 +43,10 @@ public class Router {
     private static Parent loadFXMLView(Class<? extends View> view){
 
         return fxWeaver.loadView(view);
+    }
+
+    public static void closeStage() {
+        stage.close();
+        Platform.exit();
     }
 }

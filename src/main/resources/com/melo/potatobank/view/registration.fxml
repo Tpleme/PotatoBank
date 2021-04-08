@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.melo.view.RegistrationView">
+<BorderPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.melo.potatobank.view.RegistrationView">
 
     <stylesheets>
         <URL value="@registration.css" />
@@ -22,12 +22,12 @@
             <children>
                 <ImageView fitHeight="198.0" fitWidth="154.0" layoutX="48.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="@../../images/potato.png" />
+                        <Image url="/images/potato.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="79.0" fitWidth="203.0" layoutX="24.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="@../../images/PotatoBankTitle.png" />
+                        <Image url="/images/PotatoBankTitle.png" />
                     </image>
                 </ImageView>
             </children>

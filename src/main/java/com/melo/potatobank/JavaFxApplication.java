@@ -1,6 +1,6 @@
 package com.melo.potatobank;
 
-import com.melo.potatobank.view.MainStageView;
+import com.melo.potatobank.view.LogInView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -29,7 +29,7 @@ public class JavaFxApplication extends Application {
         stage.setScene(scene);
         stage.show();
         */
-        new Router(stage, MainStageView.class, fxWeaver);
+        new Router(stage, LogInView.class, fxWeaver);
     }
 
     @Override
