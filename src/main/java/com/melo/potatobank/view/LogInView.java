@@ -1,7 +1,10 @@
 package com.melo.potatobank.view;
 
 import com.melo.potatobank.Router;
-import com.melo.potatobank.StatusCode;
+import com.melo.potatobank.exception.CustomException;
+import com.melo.potatobank.exception.CustomerNotFoundException;
+import com.melo.potatobank.exception.FieldNotFilledException;
+import com.melo.potatobank.exception.WrongCredentialException;
 import com.melo.potatobank.service.LogInService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,26 +40,12 @@ public class LogInView implements View {
     @FXML
     private void onClickLoginButton() {
 
-        StatusCode statusCode = logInService.loginUser(userNameField.getText(), passwordField.getText());
+        try {
+            logInService.loginUser(userNameField.getText(), passwordField.getText());
 
-        switch (statusCode) {
-            case ALL_OK: //TODO: Enter main application
-                System.out.println("Login success");
-                break;
-            case WRONG_CREDENTIAL:
-                warningLabel.setText(StatusCode.WRONG_CREDENTIAL.getMessage());
-                break;
-            case FIELDS_NOT_FILLED:
-                warningLabel.setText(StatusCode.FIELDS_NOT_FILLED.getMessage());
-                break;
-            case COULD_NOT_CONNECT_TO_SERVER:
-                warningLabel.setText(StatusCode.COULD_NOT_CONNECT_TO_SERVER.getMessage());
-                break;
-            case COULD_NOT_COMMUNICATE_WITH_DB:
-                warningLabel.setText(StatusCode.COULD_NOT_COMMUNICATE_WITH_DB.getMessage());
-                break;
+        } catch (CustomException exception) {
+            warningLabel.setText(exception.getMessage());
         }
-
     }
 
     @FXML
