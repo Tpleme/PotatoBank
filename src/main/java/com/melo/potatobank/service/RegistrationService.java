@@ -37,17 +37,22 @@ public class RegistrationService {
             throw new PasswordDontMatchException();
         }
 
-        Customer customer = new Customer();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
-        customer.setEmail(email);
-        customer.setPhone(phone);
-        customer.setPassword(String.valueOf(pass.hashCode()));
-
-        repository.save(customer);
+        repository.save(buildCustomer(values));
 
         //TODO: Falta apresentar aqui uma mensagem/alerta a confirmar o registo
 
         Router.reRoute(LogInView.class);
+    }
+
+    private Customer buildCustomer(String[] fields) {
+
+        Customer customer = new Customer();
+        customer.setFirstName(fields[0]);
+        customer.setLastName(fields[1]);
+        customer.setEmail(fields[2]);
+        customer.setPhone(fields[3]);
+        customer.setPassword(String.valueOf(fields[4].hashCode()));
+
+        return customer;
     }
 }
