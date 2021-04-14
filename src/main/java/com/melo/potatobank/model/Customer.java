@@ -76,6 +76,10 @@ public class Customer extends AbstractModel {
 
     @Override
     public String toString() {
-        return "ID: " + super.getId() + ", Name: " + firstName + " " + lastName + ", Email: " + email + ", Phone: " + phone;
+        return "ID: " + super.getId() +
+                ", Name: " + firstName + " " + lastName +
+                ", Email: " + email +
+                ", Phone: " + phone +
+                ", Accounts: " + accounts.toString();
     }
 }
