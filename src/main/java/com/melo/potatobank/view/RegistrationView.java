@@ -2,9 +2,7 @@ package com.melo.potatobank.view;
 
 import com.melo.potatobank.Router;
 import com.melo.potatobank.exception.CustomException;
-import com.melo.potatobank.exception.FieldNotFilledException;
-import com.melo.potatobank.exception.PasswordDontMatchException;
-import com.melo.potatobank.service.RegistrationService;
+import com.melo.potatobank.controller.RegistrationController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -32,11 +30,11 @@ public class RegistrationView implements View {
     @FXML
     private PasswordField confirmPasswordField;
 
-    private RegistrationService registrationService;
+    private RegistrationController registrationController;
 
     @Autowired
-    public RegistrationView(RegistrationService registrationService) {
-        this.registrationService = registrationService;
+    public RegistrationView(RegistrationController registrationController) {
+        this.registrationController = registrationController;
     }
 
     @FXML
@@ -49,7 +47,7 @@ public class RegistrationView implements View {
 
         try {
 
-            registrationService.registerNewUser(firstNameField.getText(), lastNameField.getText(), emailField.getText()
+            registrationController.registerNewUser(firstNameField.getText(), lastNameField.getText(), emailField.getText()
             ,phoneField.getText(), passwordField.getText(), confirmPasswordField.getText());
 
         }catch (CustomException e) {

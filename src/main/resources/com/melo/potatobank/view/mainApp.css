@@ -7,13 +7,13 @@
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,#D37D28, #9E5D18);
 }
 
-#button1:hover, #button2:hover, #button3:hover, #button4:hover {
+#CustomerInfoBtn:hover, #AccountBtn:hover, #FavoritesBtn:hover, #ExitBtn:hover {
     -fx-border-color: white;
     -fx-border-width: 1.2;
     -fx-scale-x: 1.1;
 }
 
-#button1, #button2, #button3, #button4 {
+#CustomerInfoBtn, #AccountBtn, #FavoritesBtn, #ExitBtn {
 
     -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,#9E5D18, #D37D28);
 }

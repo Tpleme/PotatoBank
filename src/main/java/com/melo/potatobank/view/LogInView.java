@@ -2,10 +2,7 @@ package com.melo.potatobank.view;
 
 import com.melo.potatobank.Router;
 import com.melo.potatobank.exception.CustomException;
-import com.melo.potatobank.exception.CustomerNotFoundException;
-import com.melo.potatobank.exception.FieldNotFilledException;
-import com.melo.potatobank.exception.WrongCredentialException;
-import com.melo.potatobank.service.LogInService;
+import com.melo.potatobank.controller.LogInController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -25,11 +22,11 @@ public class LogInView implements View {
     @FXML
     private Label warningLabel;
 
-    private LogInService logInService;
+    private LogInController logInController;
 
     @Autowired
-    public LogInView(LogInService logInService) {
-        this.logInService = logInService;
+    public LogInView(LogInController logInController) {
+        this.logInController = logInController;
     }
 
     @FXML
@@ -41,7 +38,7 @@ public class LogInView implements View {
     private void onClickLoginButton() {
 
         try {
-            logInService.loginUser(userNameField.getText(), passwordField.getText());
+            logInController.loginUser(userNameField.getText(), passwordField.getText());
 
         } catch (CustomException exception) {
             warningLabel.setText(exception.getMessage());

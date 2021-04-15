@@ -1,21 +1,21 @@
-package com.melo.potatobank.service;
+package com.melo.potatobank.controller;
 
 import com.melo.potatobank.Router;
+import com.melo.potatobank.service.CustomerService;
 import com.melo.potatobank.exception.*;
 import com.melo.potatobank.model.Customer;
-import com.melo.potatobank.repository.GenericRepository;
 import com.melo.potatobank.view.LogInView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
-@Service
-public class RegistrationService {
+@Controller
+public class RegistrationController {
 
-    GenericRepository<Customer> repository;
+    private CustomerService customerService;
 
     @Autowired
-    public void setRepository(GenericRepository<Customer> repository) {
-        this.repository = repository;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     public void registerNewUser(String firstName, String lastName, String email, String phone, String pass,
@@ -29,7 +29,7 @@ public class RegistrationService {
             }
         }
 
-        if (repository.findByEmail(email).isPresent()) {
+        if (customerService.getCustomer(email).isPresent()) {
             throw new CustomerAlreadyExistException();
         }
 
@@ -37,7 +37,7 @@ public class RegistrationService {
             throw new PasswordDontMatchException();
         }
 
-        repository.save(buildCustomer(values));
+        customerService.saveCustomer(buildCustomer(values));
 
         //TODO: Falta apresentar aqui uma mensagem/alerta a confirmar o registo
 

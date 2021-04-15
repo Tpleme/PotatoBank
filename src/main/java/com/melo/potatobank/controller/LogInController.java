@@ -1,28 +1,26 @@
-package com.melo.potatobank.service;
+package com.melo.potatobank.controller;
 
 import com.melo.potatobank.Router;
+import com.melo.potatobank.service.CustomerService;
 import com.melo.potatobank.exception.CustomException;
 import com.melo.potatobank.exception.CustomerNotFoundException;
 import com.melo.potatobank.exception.FieldNotFilledException;
 import com.melo.potatobank.exception.WrongCredentialException;
 import com.melo.potatobank.model.Customer;
-import com.melo.potatobank.model.account.AbstractModel;
-import com.melo.potatobank.model.account.Account;
-import com.melo.potatobank.model.account.CheckingAccount;
-import com.melo.potatobank.repository.GenericRepository;
 import com.melo.potatobank.view.MainAppView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
 
-@Service
-public class LogInService {
 
-    GenericRepository<AbstractModel> repository;
+@Controller
+public class LogInController {
+
+    private CustomerService customerService;
 
     @Autowired
-    public void setRepository(GenericRepository<AbstractModel> repository) {
-        this.repository = repository;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     public void loginUser(String email, String password) throws CustomException {
@@ -31,13 +29,13 @@ public class LogInService {
             throw new FieldNotFilledException();
         }
 
-        Customer customer = repository.findByEmail(email).orElseThrow(CustomerNotFoundException::new);
+        Customer customer = customerService.getCustomer(email).orElseThrow(CustomerNotFoundException::new);
 
         if (!customer.getPassword().equals(String.valueOf(password.hashCode()))) {
             throw new WrongCredentialException();
         }
 
-        //TODO: Se o codigo chegar até aqui, logar o user como current customer e apresentar a main app
+        MainAppController.setActiveCustomer(customer);
         Router.reRoute(MainAppView.class);
     }
 }
