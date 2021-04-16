@@ -1,6 +1,7 @@
 package com.melo.potatobank.service;
 
 import com.melo.potatobank.model.Customer;
+import com.melo.potatobank.model.account.Account;
 import com.melo.potatobank.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,14 @@ public class CustomerService {
 
     public void saveCustomer(Customer customer) {
         repository.save(customer);
+    }
+
+    public double getBalance(Integer id) {
+
+        Customer customer = repository.getOne(id);
+
+        return customer.getAccounts().stream()
+                .mapToDouble(Account::getBalance)
+                .sum();
     }
 }
