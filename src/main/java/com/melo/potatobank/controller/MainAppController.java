@@ -26,7 +26,7 @@ public class MainAppController {
         return activeCustomer;
     }
 
-    public double getCustomerTotalBalance(Integer id) {
-        return customerService.getBalance(id);
+    public double getCustomerTotalBalance(String email) {
+        return customerService.getBalance(email);
     }
 }

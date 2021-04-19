@@ -58,13 +58,7 @@ public class MainAppView implements View{
         phoneField.setText(activeCustomer.getPhone());
 
         nAccountsField.setText(String.valueOf(activeCustomer.getAccounts().size()));
-        //totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getId())));
-
-        double amount = activeCustomer.getAccounts().stream()
-                .mapToDouble(Account::getBalance)
-                .sum();
-
-        totalField.setText(String.valueOf(amount));
+        totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getEmail())));
     }
 
     public void onClickCustomerInfoButton(ActionEvent event) {
@@ -83,4 +77,6 @@ public class MainAppView implements View{
         MainAppController.setActiveCustomer(null);
         Router.reRoute(LogInView.class);
     }
+
+
 }
