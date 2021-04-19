@@ -3,6 +3,7 @@ package com.melo.potatobank.view;
 import com.melo.potatobank.Router;
 import com.melo.potatobank.controller.MainAppController;
 import com.melo.potatobank.model.Customer;
+import com.melo.potatobank.model.account.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -34,9 +35,10 @@ public class MainAppView implements View{
     @FXML
     private Pane customerInfoPane;
 
-    private MainAppController controller;
-
+    @FXML
     private Customer activeCustomer;
+
+    private MainAppController controller;
 
     @Autowired
     public void setController(MainAppController controller) {
@@ -56,7 +58,13 @@ public class MainAppView implements View{
         phoneField.setText(activeCustomer.getPhone());
 
         nAccountsField.setText(String.valueOf(activeCustomer.getAccounts().size()));
-        totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getId())));
+        //totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getId())));
+
+        double amount = activeCustomer.getAccounts().stream()
+                .mapToDouble(Account::getBalance)
+                .sum();
+
+        totalField.setText(String.valueOf(amount));
     }
 
     public void onClickCustomerInfoButton(ActionEvent event) {

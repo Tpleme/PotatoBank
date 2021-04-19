@@ -28,9 +28,9 @@ public class CustomerService {
 
     public double getBalance(Integer id) {
 
-        Customer customer = repository.getOne(id);
+        Optional<Customer> customer = repository.findById(id);
 
-        return customer.getAccounts().stream()
+        return customer.get().getAccounts().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
     }

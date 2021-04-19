@@ -10,7 +10,6 @@ import java.util.Optional;
 @Repository
 public interface GenericRepository<T extends AbstractModel> extends JpaRepository<T, Integer> {
 
-    Optional<T> findById(Integer id);
 
     Optional<Customer> findByEmail(String email);
 
