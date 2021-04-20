@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -59,7 +60,7 @@
          <children>
             <Pane fx:id="customerInfoPane" layoutX="24.0" layoutY="36.0" prefHeight="275.0" prefWidth="600.0">
                <children>
-                  <Label  layoutX="119.0" layoutY="22.0" prefHeight="30.0" prefWidth="74.0" text="Name:" textAlignment="CENTER">
+                  <Label layoutX="119.0" layoutY="22.0" prefHeight="30.0" prefWidth="74.0" text="Name:" textAlignment="CENTER">
                      <font>
                         <Font name="Cambria" size="20.0" />
                      </font>
@@ -90,6 +91,28 @@
                   </Label>
                   <TextField fx:id="totalField" disable="true" layoutX="327.0" layoutY="226.0" prefHeight="25.0" prefWidth="139.0" />
                   <Separator layoutX="114.0" layoutY="162.0" prefHeight="6.0" prefWidth="353.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="accountPane" prefHeight="352.0" prefWidth="700.0">
+               <children>
+                  <Label layoutX="23.0" layoutY="21.0" prefHeight="30.0" prefWidth="189.0" text="Accounts:" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cambria" size="20.0" />
+                     </font>
+                  </Label>
+                  <ToolBar fx:id="accountToolbar" layoutX="23.0" layoutY="70.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="655.0">
+                    <items>
+                        <Button mnemonicParsing="false" onAction="#onActionViewAccount" text="View" />
+                        <Button mnemonicParsing="false" onAction="#onActionDeposit" text="Deposit" />
+                        <Button mnemonicParsing="false" onAction="#onActionWithdraw" text="Withdraw" />
+                        <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="13.0" />
+                        <Label fx:id="amountLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="86.0" text="Amount Placeholder" />
+                        <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="13.0" />
+                        <Label fx:id="accountTypeLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="272.0" text="Account type placeholder" />
+                        <Separator orientation="VERTICAL" prefHeight="0.0" prefWidth="13.0" />
+                        <Label fx:id="accountIdLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="17.0" prefWidth="32.0" text="ID" />
+                    </items>
+                  </ToolBar>
                </children>
             </Pane>
          </children></AnchorPane>

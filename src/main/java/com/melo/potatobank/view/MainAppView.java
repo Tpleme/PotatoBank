@@ -3,7 +3,6 @@ package com.melo.potatobank.view;
 import com.melo.potatobank.Router;
 import com.melo.potatobank.controller.MainAppController;
 import com.melo.potatobank.model.Customer;
-import com.melo.potatobank.model.account.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -33,7 +32,16 @@ public class MainAppView implements View{
     private TextField totalField;
 
     @FXML
+    private Pane accountPane;
+    @FXML
     private Pane customerInfoPane;
+
+    @FXML
+    private Label accountTypeLabel;
+    @FXML
+    private Label accountIdLabel;
+    @FXML
+    private Label amountLabel;
 
     @FXML
     private Customer activeCustomer;
@@ -50,6 +58,7 @@ public class MainAppView implements View{
         activeCustomer = MainAppController.getActiveCustomer();
 
         customerInfoPane.setVisible(false);
+        accountPane.setVisible(false);
 
         customerName.setText(activeCustomer.getFirstName() + " " + activeCustomer.getLastName());
 
@@ -63,14 +72,21 @@ public class MainAppView implements View{
 
     public void onClickCustomerInfoButton(ActionEvent event) {
         customerInfoPane.setVisible(true);
+        accountPane.setVisible(false);
     }
 
     public void onClickAccountsButton(ActionEvent event) {
         customerInfoPane.setVisible(false);
+        accountPane.setVisible(true);
+
+        accountIdLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getId()));
+        accountTypeLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getAccountType()));
+        amountLabel.setText(activeCustomer.getAccounts().get(0).getBalance() + " €");
     }
 
     public void onClickFavoritesButton(ActionEvent event) {
         customerInfoPane.setVisible(false);
+        accountPane.setVisible(false);
     }
 
     public void onClickExitButton(ActionEvent event) {
@@ -78,5 +94,12 @@ public class MainAppView implements View{
         Router.reRoute(LogInView.class);
     }
 
+    public void onActionViewAccount(ActionEvent event) {
+    }
 
+    public void onActionDeposit(ActionEvent event) {
+    }
+
+    public void onActionWithdraw(ActionEvent event) {
+    }
 }
