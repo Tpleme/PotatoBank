@@ -10,16 +10,16 @@ import javafx.scene.control.ToolBar;
 
 public class JavaFxToolbarFactory {
 
-    private final double padding = 2;
-    private double defaultPositionX;
+    private final double padding = 5.0;
+    private final double defaultPositionX;
     private double defaultPositionY;
-    private NodeOrientation defaultNodeOrientation;
-    private double defaultPrefHeight;
-    private double defaultPrefWeight;
+    private final NodeOrientation defaultNodeOrientation;
+    private final double defaultPrefHeight;
+    private final double defaultPrefWeight;
 
     public JavaFxToolbarFactory() {
         defaultPositionX = 23.0;
-        defaultPositionY = 0;
+        defaultPositionY = 20.0;
         defaultNodeOrientation = NodeOrientation.RIGHT_TO_LEFT;
         defaultPrefHeight = 42.0;
         defaultPrefWeight = 639.0;
@@ -27,8 +27,6 @@ public class JavaFxToolbarFactory {
     }
 
     public ToolBar buildToolBar(Account account) {
-
-        defaultPositionY += 23.0 + padding;
 
         ToolBar toolBar = new ToolBar();
 
@@ -38,10 +36,14 @@ public class JavaFxToolbarFactory {
         toolBar.setPrefHeight(defaultPrefHeight);
         toolBar.setPrefWidth(defaultPrefWeight);
 
-        return toolBar;
+        System.out.println(defaultPositionY);
+
+        defaultPositionY += defaultPrefHeight + padding;
+
+        return fillToolBar(toolBar, account);
     }
 
-/*    private ToolBar fillToolBar(ToolBar toolBar, Account account) {
+    private ToolBar fillToolBar(ToolBar toolBar, Account account) {
 
         Button viewButton = new Button("View");
         Button depositButton = new Button("Deposit");
@@ -62,5 +64,5 @@ public class JavaFxToolbarFactory {
         toolBar.getItems().add(accountIdLabel);
 
         return toolBar;
-    }*/
+    }
 }
