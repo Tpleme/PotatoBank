@@ -3,10 +3,12 @@ package com.melo.potatobank.view;
 import com.melo.potatobank.Router;
 import com.melo.potatobank.controller.MainAppController;
 import com.melo.potatobank.model.Customer;
+import com.melo.potatobank.model.account.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,12 @@ public class MainAppView implements View{
     @FXML
     private Pane customerInfoPane;
 
-    @FXML
-    private Label accountTypeLabel;
-    @FXML
-    private Label accountIdLabel;
-    @FXML
-    private Label amountLabel;
+   // @FXML
+    //private Label accountTypeLabel;
+   // @FXML
+    //private Label accountIdLabel;
+   // @FXML
+    //private Label amountLabel;
 
     @FXML
     private Customer activeCustomer;
@@ -77,11 +79,20 @@ public class MainAppView implements View{
 
     public void onClickAccountsButton(ActionEvent event) {
         customerInfoPane.setVisible(false);
+
+        JavaFxToolbarFactory toolbarFactory = new JavaFxToolbarFactory();
+
+        for (Account account : activeCustomer.getAccounts()) {
+            accountPane.getChildren().add(toolbarFactory.buildToolBar(account));
+        }
+
+
         accountPane.setVisible(true);
 
-        accountIdLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getId()));
-        accountTypeLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getAccountType()));
-        amountLabel.setText(activeCustomer.getAccounts().get(0).getBalance() + " €");
+
+        //accountIdLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getId()));
+        //accountTypeLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getAccountType()));
+        //amountLabel.setText(activeCustomer.getAccounts().get(0).getBalance() + " €");
     }
 
     public void onClickFavoritesButton(ActionEvent event) {
