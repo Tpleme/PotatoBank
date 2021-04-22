@@ -7,8 +7,9 @@ import com.melo.potatobank.model.account.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,22 @@ public class MainAppView implements View{
     private Pane accountPane;
     @FXML
     private Pane customerInfoPane;
-
-   // @FXML
-    //private Label accountTypeLabel;
-   // @FXML
-    //private Label accountIdLabel;
-   // @FXML
-    //private Label amountLabel;
+    @FXML
+    private Pane favoritePane;
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Customer activeCustomer;
 
     private MainAppController controller;
+
+    private JavaFxToolbarFactory toolbarFactory;
+
+    @Autowired
+    public void setToolbarFactory(JavaFxToolbarFactory toolbarFactory) {
+        this.toolbarFactory = toolbarFactory;
+    }
 
     @Autowired
     public void setController(MainAppController controller) {
@@ -59,8 +64,55 @@ public class MainAppView implements View{
     private void initialize() {
         activeCustomer = MainAppController.getActiveCustomer();
 
+        setUpAccountPane();
+        setUpCustomerPane();
+        setUpFavoritePane();
+
         customerInfoPane.setVisible(false);
         accountPane.setVisible(false);
+        favoritePane.setVisible(false);
+    }
+
+    public void onClickCustomerInfoButton(ActionEvent event) {
+        customerInfoPane.setVisible(true);
+        accountPane.setVisible(false);
+        favoritePane.setVisible(false);
+    }
+
+    public void onClickAccountsButton(ActionEvent event) {
+        customerInfoPane.setVisible(false);
+        accountPane.setVisible(true);
+        favoritePane.setVisible(false);
+
+    }
+
+    public void onClickFavoritesButton(ActionEvent event) {
+        customerInfoPane.setVisible(false);
+        accountPane.setVisible(false);
+        favoritePane.setVisible(true);
+    }
+
+    public void onClickExitButton(ActionEvent event) {
+        MainAppController.setActiveCustomer(null);
+        Router.reRoute(LogInView.class);
+    }
+
+    private void setUpAccountPane() {
+
+        if (activeCustomer.getAccounts().size() <= 7) {
+            accountPane.setPrefHeight(266.0);
+        }
+        else {
+            accountPane.setPrefHeight(266.0 +
+                    (toolbarFactory.getDefaultPrefHeight() + toolbarFactory.getPadding() * activeCustomer.getAccounts().size() -7));
+        }
+
+        for (Account account : activeCustomer.getAccounts()) {
+            anchorPane.getChildren().add(toolbarFactory.buildToolBar(account));
+        }
+    }
+
+    private void setUpCustomerPane() {
 
         customerName.setText(activeCustomer.getFirstName() + " " + activeCustomer.getLastName());
 
@@ -72,45 +124,23 @@ public class MainAppView implements View{
         totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getEmail())));
     }
 
-    public void onClickCustomerInfoButton(ActionEvent event) {
-        customerInfoPane.setVisible(true);
-        accountPane.setVisible(false);
+    private void setUpFavoritePane() {
+
     }
 
-    public void onClickAccountsButton(ActionEvent event) {
-        customerInfoPane.setVisible(false);
+    public void onClickViewButton(Integer id) {
 
-        JavaFxToolbarFactory toolbarFactory = new JavaFxToolbarFactory();
+        System.out.println("Clicked on view button of account " + id);
 
-        for (Account account : activeCustomer.getAccounts()) {
-            accountPane.getChildren().add(toolbarFactory.buildToolBar(account));
-        }
-
-
-        accountPane.setVisible(true);
-
-
-        //accountIdLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getId()));
-        //accountTypeLabel.setText(String.valueOf(activeCustomer.getAccounts().get(0).getAccountType()));
-        //amountLabel.setText(activeCustomer.getAccounts().get(0).getBalance() + " €");
     }
 
-    public void onClickFavoritesButton(ActionEvent event) {
-        customerInfoPane.setVisible(false);
-        accountPane.setVisible(false);
+    public void onClickDepositButton(Integer id) {
+
+        System.out.println("Clicked on deposit button of account " + id);
     }
 
-    public void onClickExitButton(ActionEvent event) {
-        MainAppController.setActiveCustomer(null);
-        Router.reRoute(LogInView.class);
-    }
+    public void onClickWithdrawButton(Integer id) {
 
-    public void onActionViewAccount(ActionEvent event) {
-    }
-
-    public void onActionDeposit(ActionEvent event) {
-    }
-
-    public void onActionWithdraw(ActionEvent event) {
+        System.out.println("Clicked on withdraw button of account " + id);
     }
 }

@@ -51,4 +51,13 @@ public abstract class Account extends AbstractModel {
     protected boolean canDebit(double amount) {
         return amount > 0 && amount <= balance;
     }
+
+    @Override
+    public String toString() {
+        return "Account ID: " + getId() +
+                "Account Type: " + getAccountType() +
+                "Account Balance: " + getBalance() +
+                "From customer: " + getCustomer().getFirstName() +
+                " " + getCustomer().getLastName();
+    }
 }
