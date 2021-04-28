@@ -26,6 +26,10 @@ public class MainAppController {
         return activeCustomer;
     }
 
+    public void refreshCustomerInfo() {
+        setActiveCustomer(customerService.getCustomer(activeCustomer.getEmail()).get());
+    }
+
     public double getCustomerTotalBalance(String email) {
         return customerService.getBalance(email);
     }
