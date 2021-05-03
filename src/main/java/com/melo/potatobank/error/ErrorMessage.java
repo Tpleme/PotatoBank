@@ -9,7 +9,8 @@ public enum ErrorMessage {
     PASS_DONT_MATCH("Make sure the passwords match"),
     EMAIL_USED("This email is already registered in our database"),
     COULD_NOT_CONNECT_TO_SERVER("Could not connect to server, please try again later"),
-    COULD_NOT_COMMUNICATE_WITH_DB("Could not communicate with the data base, please try again later");
+    COULD_NOT_COMMUNICATE_WITH_DB("Could not communicate with the data base, please try again later"),
+    UNABLE_TO_CREDIT_ACCOUNT("Unable to credit account, make sure you credit a value greater than 0");
 
     private final String message;
 

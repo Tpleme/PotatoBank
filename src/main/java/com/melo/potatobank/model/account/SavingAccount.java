@@ -13,7 +13,7 @@ public class SavingAccount extends Account {
     }
 
     @Override
-    protected boolean canDebit(double amount) {
+    public boolean canDebit(double amount) {
         return super.canDebit(amount) && (getBalance() - amount) >= MIN_BALANCE;
     }
 }

@@ -1,5 +1,6 @@
 package com.melo.potatobank.service;
 
+import com.melo.potatobank.exception.CannotCreditAccountException;
 import com.melo.potatobank.model.account.Account;
 import com.melo.potatobank.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +20,13 @@ public class AccountService {
         repository.save(account);
     }
 
+    public void creditAccount(Account account, double amount) throws CannotCreditAccountException{
+
+        if(account.canCredit(amount)) {
+            account.credit(amount);
+            return;
+        }
+
+        throw new CannotCreditAccountException();
+    }
 }

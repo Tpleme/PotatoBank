@@ -26,11 +26,9 @@ public class CustomerService {
         repository.save(customer);
     }
 
-    public double getBalance(String email) {
+    public double getBalance(Customer customer) {
 
-        Optional<Customer> customer = repository.findByEmail(email);
-
-        return customer.get().getAccounts().stream()
+        return customer.getAccounts().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
     }

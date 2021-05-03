@@ -81,9 +81,9 @@ public class JavaFxToolbarFactory {
         accountIdLabel.setPrefHeight(17.0);
         accountIdLabel.setPrefWidth(32.0);
 
-        viewButton.setOnAction(event -> mainAppView.onClickViewButton(account.getId()));
-        depositButton.setOnAction(event -> mainAppView.onClickDepositButton(account.getId()));
-        withdrawButton.setOnAction(event -> mainAppView.onClickWithdrawButton(account.getId()));
+        viewButton.setOnAction(event -> mainAppView.onClickViewButton(account));
+        depositButton.setOnAction(event -> mainAppView.onClickDepositButton(account));
+        withdrawButton.setOnAction(event -> mainAppView.onClickWithdrawButton(account));
 
         toolBar.getItems().add(viewButton);
         toolBar.getItems().add(depositButton);

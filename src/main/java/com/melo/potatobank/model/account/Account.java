@@ -44,11 +44,11 @@ public abstract class Account extends AbstractModel {
         }
     }
 
-    protected boolean canCredit(double amount) {
+    public boolean canCredit(double amount) {
         return amount > 0;
     }
 
-    protected boolean canDebit(double amount) {
+    public boolean canDebit(double amount) {
         return amount > 0 && amount <= balance;
     }
 

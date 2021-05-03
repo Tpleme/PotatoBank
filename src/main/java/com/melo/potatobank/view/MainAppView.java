@@ -2,6 +2,7 @@ package com.melo.potatobank.view;
 
 import com.melo.potatobank.Router;
 import com.melo.potatobank.controller.MainAppController;
+import com.melo.potatobank.exception.CannotCreditAccountException;
 import com.melo.potatobank.model.Customer;
 import com.melo.potatobank.model.account.Account;
 import javafx.event.ActionEvent;
@@ -9,16 +10,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.StageStyle;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 
 @Component
 @FxmlView("mainApplication.fxml")
-public class MainAppView implements View{
+public class MainAppView implements View {
 
     @FXML
     private Label customerName;
@@ -68,7 +73,7 @@ public class MainAppView implements View{
         setUpCustomerPane();
         setUpFavoritePane();
 
-        customerInfoPane.setVisible(false);
+        customerInfoPane.setVisible(true);
         accountPane.setVisible(false);
         favoritePane.setVisible(false);
     }
@@ -101,10 +106,9 @@ public class MainAppView implements View{
 
         if (activeCustomer.getAccounts().size() <= 7) {
             accountPane.setPrefHeight(266.0);
-        }
-        else {
+        } else {
             accountPane.setPrefHeight(266.0 +
-                    (toolbarFactory.getDefaultPrefHeight() + toolbarFactory.getPadding() * activeCustomer.getAccounts().size() -7));
+                    (toolbarFactory.getDefaultPrefHeight() + toolbarFactory.getPadding() * activeCustomer.getAccounts().size() - 7));
         }
 
         for (Account account : activeCustomer.getAccounts()) {
@@ -121,26 +125,41 @@ public class MainAppView implements View{
         phoneField.setText(activeCustomer.getPhone());
 
         nAccountsField.setText(String.valueOf(activeCustomer.getAccounts().size()));
-        totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer.getEmail())));
+        totalField.setText(String.valueOf(controller.getCustomerTotalBalance(activeCustomer)));
     }
 
     private void setUpFavoritePane() {
 
     }
 
-    public void onClickViewButton(Integer id) {
+    public void onClickViewButton(Account account) {
 
-        System.out.println("Clicked on view button of account " + id);
+        System.out.println("Clicked on view button of account " + account.getId());
 
     }
 
-    public void onClickDepositButton(Integer id) {
+    public void onClickDepositButton(Account account) {
 
-        System.out.println("Clicked on deposit button of account " + id);
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Credit account");
+        dialog.setHeaderText("Input the amount you want to deposit in the account with the number " + account.getId());
+        dialog.setContentText("Input the amount: ");
+        dialog.initStyle(StageStyle.UTILITY);
+
+        Optional<Double> result = dialog.showAndWait().map(Double::new);
+
+        result.ifPresent(amount -> {
+            try {
+                controller.creditAccount(account, amount);
+                //TODO: refresh accountPane, care with calling "setupAccountPane", not the best solution
+            } catch (CannotCreditAccountException e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
-    public void onClickWithdrawButton(Integer id) {
+    public void onClickWithdrawButton(Account account) {
 
-        System.out.println("Clicked on withdraw button of account " + id);
+        System.out.println("Clicked on withdraw button of account " + account.getId());
     }
 }
